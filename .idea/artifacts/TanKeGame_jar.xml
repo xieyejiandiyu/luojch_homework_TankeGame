@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TanKeGame:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TanKeGame_jar</output-path>
+    <root id="archive" name="TanKeGame.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/../../../../META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="TanKeGame" />
+    </root>
+  </artifact>
+</component>
