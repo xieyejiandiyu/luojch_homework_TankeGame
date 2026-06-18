@@ -3,7 +3,7 @@ package com.luo.draw;
 import com.luo.article.*;
 import com.luo.level.Level;
 import com.luo.music.AePlayWave;
-import com.specialEfficacy.Bomb;
+import com.luo.specialEfficacy.Bomb;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
