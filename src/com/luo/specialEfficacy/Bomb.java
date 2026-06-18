@@ -1,4 +1,4 @@
-package com.specialEfficacy;
+package com.luo.specialEfficacy;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
