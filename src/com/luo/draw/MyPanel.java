@@ -747,14 +747,14 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 //判断i敌方坦克是上面还是下面
                 switch (enemyTanKArr.get(i).getDirect()) {
                     //我方坦克的上面和下面的情况
-                    //我方坦克的上下方向，跟参照物坦克i的上下方向对比
+                    //我方参照物坦克的上下方向，跟敌方坦克i的上下方向对比
                     case 0:
                     case 1:
                         //i坦克的左上角x判断我方坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() - 2)
-                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() - 2)
-                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() - 26)
-                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() - 26)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_ABOVE_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_ABOVE_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -776,10 +776,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的右上角x判断我方坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + 68)
-                                && (luoTanK.getX() + 28) >= (enemyTanKArr.get(i).getX() + 68)
-                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() - 26)
-                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() - 26)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 28) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_ABOVE_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_ABOVE_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -800,10 +800,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的左下角x判断我方坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() - 2)
-                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() - 2)
-                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + 30)
-                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + 30)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_BELOW_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_BELOW_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -824,10 +824,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的右下角x判断我方坦克
-                        if (luoTanK.getX() <= (enemyTanKArr.get(i).getX() + 68)
-                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + 68)
-                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + 30)
-                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + 30)) {
+                        if (luoTanK.getX() <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_BELOW_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_BELOW_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -852,10 +852,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                     case 2:
                     case 3:
                         //i坦克的左上角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() - 2)
-                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() - 2)
-                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() - 26)
-                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() - 26)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -876,10 +876,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的右上角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + 70)
-                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + 70)
-                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() - 26)
-                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() - 26)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -900,10 +900,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的左下角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() - 2)
-                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() - 2)
-                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + 24)
-                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + 24)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -924,10 +924,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的右下角x判断i坦克
-                        if (luoTanK.getX() <= (enemyTanKArr.get(i).getX() + 68)
-                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + 70)
-                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + 24)
-                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + 24)) {
+                        if (luoTanK.getX() <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 68) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 26) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 30) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -956,10 +956,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                     case 0:
                     case 1:
                         //i坦克的左上角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() - 3)
-                                && (luoTanK.getX() + 72) >= (enemyTanKArr.get(i).getX() - 3)
-                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() - 27)
-                                && (luoTanK.getY() + 24) >= (enemyTanKArr.get(i).getY()) - 27) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 72) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_ABOVE_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 24) >= (enemyTanKArr.get(i).getY()) + EnemyTanK.VERTICAL_TOP_ABOVE_Y_OFFSET_TANK) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -980,10 +980,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的右上角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + 70)
-                                && (luoTanK.getX() + 72) >= (enemyTanKArr.get(i).getX() + 70)
-                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() - 27)
-                                && (luoTanK.getY() + 24) >= (enemyTanKArr.get(i).getY() - 27)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 72) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_ABOVE_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 24) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_ABOVE_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -1004,10 +1004,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的左下角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() - 3)
-                                && (luoTanK.getX() + 72) >= (enemyTanKArr.get(i).getX() - 3)
-                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + 32)
-                                && (luoTanK.getY() + 24) >= (enemyTanKArr.get(i).getY() + 32)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 72) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_BELOW_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 24) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_BELOW_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -1028,10 +1028,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的右下角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + 70)
-                                && (luoTanK.getX() + 72) >= (enemyTanKArr.get(i).getX() + 70)
-                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + 32)
-                                && (luoTanK.getY() + 24) >= (enemyTanKArr.get(i).getY() + 32)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 72) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_TOP_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_BELOW_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 24) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_TOP_BELOW_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -1055,10 +1055,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                     case 2:
                     case 3:
                         //i坦克的左上角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() - 3)
-                                && (luoTanK.getX() + 70) >= (enemyTanKArr.get(i).getX() - 3)
-                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() - 27)
-                                && (luoTanK.getY() + 32) >= (enemyTanKArr.get(i).getY() - 27)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 70) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 32) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -1078,10 +1078,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                             System.out.println("撞到了和我方敌方坦克消失");
                         }
                         //i坦克的右上角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + 72)
-                                && (luoTanK.getX() + 70) >= (enemyTanKArr.get(i).getX() + 72)
-                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() - 27)
-                                && (luoTanK.getY() + 32) >= (enemyTanKArr.get(i).getY() - 27)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 70) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 32) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -1102,10 +1102,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         }
 
                         //i坦克的左下角x判断i坦克
-                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() - 3)
-                                && (luoTanK.getX() + 70) >= (enemyTanKArr.get(i).getX() - 3)
-                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + 24)
-                                && (luoTanK.getY() + 32) >= (enemyTanKArr.get(i).getY() + 24)) {
+                        if ((luoTanK.getX()) <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 70) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 32) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象
@@ -1125,10 +1125,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                             System.out.println("撞到了和我方敌方坦克消失");
                         }
                         //i坦克的右下角x判断i坦克
-                        if (luoTanK.getX() <= (enemyTanKArr.get(i).getX() + 72)
-                                && (luoTanK.getX() + 70) >= (enemyTanKArr.get(i).getX() + 72)
-                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + 24)
-                                && (luoTanK.getY() + 32) >= (enemyTanKArr.get(i).getY() + 24)) {
+                        if (luoTanK.getX() <= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getX() + 70) >= (enemyTanKArr.get(i).getX() + EnemyTanK.VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK)
+                                && (luoTanK.getY() - 27) <= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK)
+                                && (luoTanK.getY() + 32) >= (enemyTanKArr.get(i).getY() + EnemyTanK.VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK)) {
                             System.out.println("碰到坦克");
 
                             //如果撞到了敌方和我方坦克就创建Bomb对象

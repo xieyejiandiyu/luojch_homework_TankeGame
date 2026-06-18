@@ -8,6 +8,31 @@ import java.util.Vector;
 @SuppressWarnings({"all"})
 public class EnemyTanK extends Tank implements Runnable, Serializable {
 
+    //垂直方向左上角和左下角偏移参数X
+    public static final int VERTICAL_TOP_LEFT_X_OFFSET_TANK = -2;
+
+    //垂直方向右上角和右下角偏移参数X
+    public static final int VERTICAL_TOP_RIGHT_X_OFFSET_TANK = 68;
+
+    //垂直方向右上角和左上角偏移参数Y
+    public static final int VERTICAL_TOP_ABOVE_Y_OFFSET_TANK = -26;
+
+    //垂直方向右下角和左下角偏移参数Y
+    public static final int VERTICAL_TOP_BELOW_Y_OFFSET_TANK = 30;
+
+
+    //横向方向左上角和左下角偏移参数X
+    public static final int VERTICAL_HORIZONTAL_LEFT_X_OFFSET_TANK = -2;
+
+    //横向方向右上角和右下角偏移参数X
+    public static final int VERTICAL_HORIZONTAL_RIGHT_X_OFFSET_TANK = 70;
+
+    //横向方向右上角和左上角偏移参数Y
+    public static final int VERTICAL_HORIZONTAL_ABOVE_Y_OFFSET_TANK = -26;
+
+    //横向方向右下角和左下角偏移参数Y
+    public static final int VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK = 24;
+
     //坦克生命周期，false就死了
     public boolean isLent = true;
 
