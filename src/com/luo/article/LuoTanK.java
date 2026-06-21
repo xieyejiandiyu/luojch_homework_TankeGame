@@ -9,6 +9,10 @@ public class LuoTanK extends Tank implements Serializable {
 
     public LuoTanK(int x, int y, int direct, int steep, int blood) {
         super(x, y, direct, steep, blood);
+        //加文件io可修改steep和blood还有maxBlood
+        setMaxBlood(blood);
+        //按天赋（以后更新）
+        setForce(20);
     }
 
     //创建自己的子弹

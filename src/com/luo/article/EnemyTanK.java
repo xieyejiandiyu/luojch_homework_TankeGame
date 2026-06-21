@@ -33,6 +33,9 @@ public class EnemyTanK extends Tank implements Runnable, Serializable {
     //横向方向右下角和左下角偏移参数Y
     public static final int VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK = 24;
 
+    //血量高度
+    public static final double BLOOD_HEIGHT = 65;
+
     //坦克生命周期，false就死了
     public boolean isLent = true;
 
@@ -56,6 +59,10 @@ public class EnemyTanK extends Tank implements Runnable, Serializable {
 
     public EnemyTanK(int x, int y, int direct, int steep, int blood) {
         super(x, y, direct, steep, blood);
+        //下面更新血量
+        setMaxBlood(blood);
+        //按游戏难度（以后更新）
+        setForce(20);
     }
 
     //创建敌方的子弹

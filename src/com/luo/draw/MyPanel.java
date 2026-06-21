@@ -3,7 +3,8 @@ package com.luo.draw;
 import com.luo.article.*;
 import com.luo.level.Level;
 import com.luo.music.AePlayWave;
-import com.specialEfficacy.Bomb;
+import com.luo.specialEfficacy.Bomb;
+import com.luo.unity.GameMathUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -93,6 +94,13 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
 
     //制作人ui页面判断，真打开，假不打开
     boolean luoMakeGameUi = false;
+
+
+    //上一次的移动时长
+    private long lastMoveTime = 0;
+    //毫秒, 控制长按的移动频率
+    private static final long MOVE_INTERVAL = 100;
+
 
     public Vector<EnemyTanK> getEnemyTanKArr() {
         return enemyTanKArr;
@@ -283,7 +291,11 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 collisionHeroLouTank();
             }
         } catch (NullPointerException e) {
-            System.out.println("我方坦克已经被消灭，没有子弹了");
+            if (luoTanK != null) {
+                System.out.println("我方坦克已经被消灭，没有子弹了");
+                return;
+            }
+            e.printStackTrace();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("我方坦克存放子弹的vettor为空");
         }
@@ -295,7 +307,11 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 collisionHeroEnemyTanK();
             }
         } catch (NullPointerException e) {
-            System.out.println("我方坦克已经被消灭，已经无法打中我方了");
+            if (luoTanK != null) {
+                System.out.println("我方坦克已经被消灭，已经无法打中我方了");
+                return;
+            }
+            e.printStackTrace();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("敌方坦克存放子弹的vettor为空");
         }
@@ -311,7 +327,11 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
         try {
             collisonHeroLuoTankBulid();
         } catch (NullPointerException e){
-            System.out.println("我方坦克以死亡，没有子弹，无法检测建筑物");
+            if (luoTanK != null) {
+                System.out.println("我方坦克以死亡，没有子弹，无法检测建筑物");
+                return;
+            }
+            e.printStackTrace();
         }
 
         try {
@@ -319,7 +339,11 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
             //跟敌方坦克还有我方坦克的碰撞体积检测
             collisionTanKIsTank();
         } catch (NullPointerException e) {
-            System.out.println("我方坦克已经被消灭，无法检测碰撞体积了");
+            if (luoTanK != null) {
+                System.out.println("我方坦克已经被消灭，无法检测碰撞体积了");
+                return;
+            }
+            e.printStackTrace();
         }
 
         //显示子弹打中坦克的爆炸特效
@@ -405,7 +429,7 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         //打中敌方坦克后，删除我方子弹
                         luoTanK.vectorLuoHeroZiDuan.remove(i);
                         //打中敌方坦克减血
-                        enemyTanKArr.get(j).setBlood(enemyTanKArr.get(j).getBlood() - 13);
+                        enemyTanKArr.get(j).setBlood(enemyTanKArr.get(j).getBlood() - luoTanK.getForce());
                         System.out.println("减血了");
                         //血量等于0和小于0就说明敌方坦克以死亡
                         if (enemyTanKArr.get(j).getBlood() <= 0) {
@@ -442,7 +466,7 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         //打中敌方坦克后，删除我方子弹
                         luoTanK.vectorLuoHeroZiDuan.remove(i);
                         //打中敌方坦克减血
-                        enemyTanKArr.get(j).setBlood(enemyTanKArr.get(j).getBlood() - 13);
+                        enemyTanKArr.get(j).setBlood(enemyTanKArr.get(j).getBlood() - luoTanK.getForce());
                         System.out.println("减血了");
                         //血量等于0和小于0就说明敌方坦克以死亡
                         if (enemyTanKArr.get(j).getBlood() <= 0) {
@@ -489,8 +513,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         //打中我方坦克后，删除敌方子弹
                         enemyTanKArr.get(i).vectorEnemyHeroZiDuan.remove(j);
                         //打中我方坦克减血
-                        luoTanK.setBlood(luoTanK.getBlood() - 13);
-                        System.out.println("减血了");
+                        luoTanK.setBlood(luoTanK.getBlood() - enemyTanKArr.get(i).getForce());
+                        System.out.println("我方减血了");
                         //血量等于0和小于0就说明我方坦克以死亡
                         if (luoTanK.getBlood() <= 0) {
                             //创建Bomb对象
@@ -517,8 +541,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                         //打中我方坦克后，删除敌方子弹
                         enemyTanKArr.get(i).vectorEnemyHeroZiDuan.remove(j);
                         //打中我方坦克减血
-                        luoTanK.setBlood(luoTanK.getBlood() - 13);
-                        System.out.println("减血了");
+                        luoTanK.setBlood(luoTanK.getBlood() - enemyTanKArr.get(i).getForce());
+                        System.out.println("我方减血了");
                         //血量等于0和小于0就说明我方坦克以死亡
                         if (luoTanK.getBlood() <= 0) {
                             //创建坦克死亡特效的Bomb对象
@@ -1280,6 +1304,7 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
         //坦克图像的方向
         //0-3代表坦克
         //10-13代表模型坦克
+        Integer bloodHeight = 65;
         switch (direct) {//控制方向
             case 0: //表示向上
                 //以左腿为中心
@@ -1290,7 +1315,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 g.drawLine(x + 30, y + 30, x + 30, y - 5);//炮口
                 g.setColor(Color.red);
                 //上的血量在height形参里
-                g.fill3DRect(x - 2, y - 2, 3, tankLuoOrEnery.getBlood(), true);
+                g.fill3DRect(x - 2, y - 2, 3,
+                        GameMathUtils.bloodHeight((double) EnemyTanK.BLOOD_HEIGHT, (double) tankLuoOrEnery.getBlood(), (double) tankLuoOrEnery.getMaxBlood()), true);
 
                 //上面血条改了颜色，在改一次敌方我方坦克颜色
                 switch (type) {
@@ -1310,7 +1336,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 g.drawLine(x + 30, y + 30, x + 30, y + 65);//炮口
                 g.setColor(Color.red);
                 //下的血量在height形参里
-                g.fill3DRect(x - 2, y - 2, 3, tankLuoOrEnery.getBlood(), true);
+                g.fill3DRect(x - 2, y - 2, 3,
+                        GameMathUtils.bloodHeight((double) EnemyTanK.BLOOD_HEIGHT, (double) tankLuoOrEnery.getBlood(), (double) tankLuoOrEnery.getMaxBlood()), true);
 
                 switch (type) {
                     case 0: //我们的坦克
@@ -1329,7 +1356,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 g.drawLine(x + 30, y + 30, x - 5, y + 30);//炮口
                 g.setColor(Color.red);
                 //左的血量在width形参里
-                g.fill3DRect(x - 2, y - 7, tankLuoOrEnery.getBlood(), 3, true);
+                g.fill3DRect(x - 2, y - 7,
+                        GameMathUtils.bloodHeight((double) EnemyTanK.BLOOD_HEIGHT, (double) tankLuoOrEnery.getBlood(), (double) tankLuoOrEnery.getMaxBlood()), 3, true);
 
                 switch (type) {
                     case 0: //我们的坦克
@@ -1348,7 +1376,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 g.drawLine(x + 30, y + 30, x + 65, y + 30);//炮口
                 g.setColor(Color.red);
                 //右的血量在width形参里
-                g.fill3DRect(x - 2, y - 7, tankLuoOrEnery.getBlood(), 3, true);
+                g.fill3DRect(x - 2, y - 7,
+                        GameMathUtils.bloodHeight((double) EnemyTanK.BLOOD_HEIGHT, (double) tankLuoOrEnery.getBlood(), (double) tankLuoOrEnery.getMaxBlood()), 3, true);
 
                 switch (type) {
                     case 0: //我们的坦克
@@ -1703,29 +1732,47 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println((char) e.getKeyCode());//检测用
-        //控制坦克移动
         if (luoTanK == null) {
-            System.out.println("luoTanK坦克以死亡");
+            System.out.println("luoTanK坦克已死亡");
             return;
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_W && !(luoTanK.getY() < -5) && !upLuoTankCollisionBuild()) {//向上移动
-            luoTanK.moveUp();
-            luoTanK.setDirect(0);//图像向上
-        } else if (e.getKeyCode() == KeyEvent.VK_S && !(luoTanK.getY() > 665) && !downLuoTankCollisionBuild()) {//向下移动
-            luoTanK.moveDown();
-            luoTanK.setDirect(1);//图像向下
-        } else if (e.getKeyCode() == KeyEvent.VK_A && !(luoTanK.getX() < -5) && !leftLuoTankCollisionBuild()) {//向左移动
-            luoTanK.moveLeft();//图像向左
-            luoTanK.setDirect(2);
-        } else if (e.getKeyCode() == KeyEvent.VK_D && !(luoTanK.getX() > 732) && !rightLuoTankCollisionBuild()) {//向右移动
-            luoTanK.moveRight();
-            luoTanK.setDirect(3);//图像向右
+        //获取当前时间
+        long currentTime = System.currentTimeMillis();
+        //检查是否超过了移动间隔
+        boolean canMove = (currentTime - lastMoveTime >= MOVE_INTERVAL);
+
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_W && !(luoTanK.getY() < -5) && !upLuoTankCollisionBuild()) {
+            // 只有 canMove 为 true 才执行移动，或者如果是第一次按下lastMoveTime == 0也移动
+            if (canMove || lastMoveTime == 0) {
+                luoTanK.moveUp();
+                luoTanK.setDirect(0);
+                lastMoveTime = currentTime; // 更新移动时间
+            }
+        } else if (key == KeyEvent.VK_S && !(luoTanK.getY() > 665) && !downLuoTankCollisionBuild()) {
+            if (canMove || lastMoveTime == 0) {
+                luoTanK.moveDown();
+                luoTanK.setDirect(1);
+                lastMoveTime = currentTime;
+            }
+        } else if (key == KeyEvent.VK_A && !(luoTanK.getX() < -5) && !leftLuoTankCollisionBuild()) {
+            if (canMove || lastMoveTime == 0) {
+                luoTanK.moveLeft();
+                luoTanK.setDirect(2);
+                lastMoveTime = currentTime;
+            }
+        } else if (key == KeyEvent.VK_D && !(luoTanK.getX() > 732) && !rightLuoTankCollisionBuild()) {
+            if (canMove || lastMoveTime == 0) {
+                luoTanK.moveRight();
+                luoTanK.setDirect(3);
+                lastMoveTime = currentTime;
+            }
         }
 
-        //子弹发射
-        if (e.getKeyCode() == KeyEvent.VK_J) {
+        // 子弹发射逻辑不变
+        if (key == KeyEvent.VK_J) {
             System.out.println("按下j");
             if (luoTanK.vectorLuoHeroZiDuan.size() >= 3) {
                 System.out.println("子弹数量过多");

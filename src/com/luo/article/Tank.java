@@ -13,12 +13,18 @@ public class Tank implements Serializable {
 
     private int blood = 100;
 
+    private Integer maxBlood;
+
+    //子弹伤害
+    public Integer force;
+
     public Tank(int x, int y, int direct, int steep, int blood) {
         this.x = x;
         this.y = y;
         this.direct = direct;
         this.steep = steep;
         this.blood = blood;
+        this.maxBlood = blood;
     }
 
     public int getBlood() {
@@ -77,4 +83,19 @@ public class Tank implements Serializable {
         x -= steep;
     }
 
+    public Integer getMaxBlood() {
+        return maxBlood;
+    }
+
+    public void setMaxBlood(Integer maxBlood) {
+        this.maxBlood = maxBlood;
+    }
+
+    public Integer getForce() {
+        return force;
+    }
+
+    public void setForce(Integer force) {
+        this.force = force;
+    }
 }
