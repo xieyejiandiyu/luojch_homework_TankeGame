@@ -11,6 +11,8 @@ public class LuoTanK extends Tank implements Serializable {
         super(x, y, direct, steep, blood);
         //加文件io可修改steep和blood还有maxBlood
         setMaxBlood(blood);
+//        setMaxBlood(10000);
+//        setBlood(10000);
         //按天赋（以后更新）
         setForce(20);
     }

@@ -11,7 +11,9 @@ public class Hero implements Runnable{
 
     private int steep = 11;
 
-    private boolean trueOrFalse = true;;
+    private boolean trueOrFalse = true;
+
+
 
     public int getZiDuanX() {
         return ziDuanX;

@@ -63,6 +63,7 @@ public class EnemyTanK extends Tank implements Runnable, Serializable {
         setMaxBlood(blood);
         //按游戏难度（以后更新）
         setForce(20);
+//        setSteep(0);
     }
 
     //创建敌方的子弹
@@ -88,6 +89,7 @@ public class EnemyTanK extends Tank implements Runnable, Serializable {
 
             //无线接近等于4，但是int类型所以只能在0到3之间
             int j = ((int) (Math.random() * 4));
+//            int j = 0;
 
             //判断坦克行走方向
             switch (getDirect()){
@@ -107,6 +109,7 @@ public class EnemyTanK extends Tank implements Runnable, Serializable {
                                 try {
                                     Thread.sleep(130);
                                 } catch (InterruptedException e) {
+
                                 }
                                 collision = true;
                             }

@@ -99,7 +99,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
     //上一次的移动时长
     private long lastMoveTime = 0;
     //毫秒, 控制长按的移动频率
-    private static final long MOVE_INTERVAL = 100;
+//    private static final long MOVE_INTERVAL = 100;
+    private static final long MOVE_INTERVAL = 0;
 
 
     public Vector<EnemyTanK> getEnemyTanKArr() {
@@ -408,6 +409,71 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
 
     }
 
+
+    /**
+     * 处理我方子弹打中的效果
+     * i代表我方子弹luoTanK.vectorHeroS.get(i)  j代表敌方坦克enemyTanKArr.get(j)
+     * @param hitBombX 子弹打中时发生的特性的偏移参数
+     * @param hitBombY 子弹打中时发生的特性的偏移参数
+     */
+    public void handleLuoBulletHitEnemy(int i, int j, int hitBombX, int hitBombY) {
+        //创建子弹打中的特效打Bomb对象
+        Bomb bombHero = new Bomb(luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX() + hitBombX,
+                luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY() + hitBombY);
+        bombArrHero.add(bombHero);
+        //打中敌方坦克后，删除我方子弹
+        luoTanK.vectorLuoHeroZiDuan.remove(i);
+        //打中敌方坦克减血
+        enemyTanKArr.get(j).setBlood(enemyTanKArr.get(j).getBlood() - luoTanK.getForce());
+        System.out.println("减血了");
+        //血量等于0和小于0就说明敌方坦克以死亡
+        if (enemyTanKArr.get(j).getBlood() <= 0) {
+            //创建Bomb对象
+            Bomb bomb = new Bomb(enemyTanKArr.get(j).getX() + 7,
+                    enemyTanKArr.get(j).getY() + 1);
+            bombArrKill.add(bomb);
+            //false代表坦克死亡，结束敌方坦克线程
+            enemyTanKArr.get(j).isLent = false;
+            //在vector集合删除坦克，不在画坦克
+            enemyTanKArr.remove(j);
+            //记录击杀的敌方坦克数量
+            try {
+                recorder.enemyTankRecord();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("被击中,敌方坦克消失");
+        }
+    }
+
+    /**
+     * 处理我方子弹打中的效果
+     * 敌方坦克i，j代表i这个坦克有多少发子弹
+     * @param hitBombX 子弹打中时发生的特性的偏移参数
+     * @param hitBombY 子弹打中时发生的特性的偏移参数
+     */
+    public void handleEnemyBulletHitLuo(int i, int j, int hitBombX, int hitBombY) {
+        //创建子弹打中的特效打Bomb对象
+        Bomb bombHero = new Bomb(enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX() + hitBombX,
+                enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY() + hitBombY);
+        bombArrHero.add(bombHero);
+        //打中我方坦克后，删除敌方子弹
+        enemyTanKArr.get(i).vectorEnemyHeroZiDuan.remove(j);
+        //打中我方坦克减血
+        luoTanK.setBlood(luoTanK.getBlood() - enemyTanKArr.get(i).getForce());
+        System.out.println("我方减血了");
+        //血量等于0和小于0就说明我方坦克以死亡
+        if (luoTanK.getBlood() <= 0) {
+            //创建Bomb对象
+            Bomb bomb = new Bomb(luoTanK.getX() + 7,
+                    luoTanK.getY() + 1);
+            bombArrKill.add(bomb);
+            //我方坦克被打中后，死亡
+            luoTanK = null;
+            System.out.println("被击中,我方坦克消失");
+        }
+    }
+
     //判断我方子弹有没有碰到敌方坦克
     public void collisionHeroLouTank() {
         //判断我方子弹还在不在敌方身上，在就销毁敌方坦克和我方子弹
@@ -416,78 +482,56 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
             for (int j = 0; j < enemyTanKArr.size(); j++) {
                 //判断敌方坦克方向 上下方向
                 if (enemyTanKArr.get(j).getDirect() == 0 || enemyTanKArr.get(j).getDirect() == 1) {
-                    //判断我方子弹的有没有碰撞到敌方坦克
-                    if (enemyTanKArr.get(j).getX() < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getX() + 67) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getY() - 28) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
-                            && (enemyTanKArr.get(j).getY() + 20) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
-
-                        //创建子弹打中的特效打Bomb对象
-                        Bomb bombHero = new Bomb(luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX() - 24,
-                                luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY() + 5);
-                        bombArrHero.add(bombHero);
-                        //打中敌方坦克后，删除我方子弹
-                        luoTanK.vectorLuoHeroZiDuan.remove(i);
-                        //打中敌方坦克减血
-                        enemyTanKArr.get(j).setBlood(enemyTanKArr.get(j).getBlood() - luoTanK.getForce());
-                        System.out.println("减血了");
-                        //血量等于0和小于0就说明敌方坦克以死亡
-                        if (enemyTanKArr.get(j).getBlood() <= 0) {
-                            //创建Bomb对象
-                            Bomb bomb = new Bomb(enemyTanKArr.get(j).getX() + 7,
-                                    enemyTanKArr.get(j).getY() + 1);
-                            bombArrKill.add(bomb);
-                            //false代表坦克死亡，结束敌方坦克线程
-                            enemyTanKArr.get(j).isLent = false;
-                            //在vector集合删除坦克，不在画坦克
-                            enemyTanKArr.remove(j);
-                            //记录击杀的敌方坦克数量
-                            try {
-                                recorder.enemyTankRecord();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            System.out.println("被击中,敌方坦克消失");
-                            break;
-                        }
+                    //长方形1
+                    if (enemyTanKArr.get(j).getX() + 5 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + 25) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + -36) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + 34) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, -24,11);
+                        break;
+                    } //长方形2
+                    else if (enemyTanKArr.get(j).getX() + 55 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + 68) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + -36) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + 34) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, -10, 11);
+                        break;
+                    } //正方形
+                    else if (enemyTanKArr.get(j).getX() + 19 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + 54) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + -26) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + 13) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, -18, 7);
+                        break;
                     }
+
+
                 } else {
                     //不是上下就只有左右方向了
                     //碰撞体积
+                    //长方形一
                     if (enemyTanKArr.get(j).getX() + 3 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
                             && (enemyTanKArr.get(j).getX() + 70) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getY() - 28) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
-                            && (enemyTanKArr.get(j).getY() + 30) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
-
-                        //创建子弹打中的特效打Bomb对象
-                        Bomb bombHero = new Bomb(luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX() - 24,
-                                luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY() + 5);
-                        bombArrHero.add(bombHero);
-                        //打中敌方坦克后，删除我方子弹
-                        luoTanK.vectorLuoHeroZiDuan.remove(i);
-                        //打中敌方坦克减血
-                        enemyTanKArr.get(j).setBlood(enemyTanKArr.get(j).getBlood() - luoTanK.getForce());
-                        System.out.println("减血了");
-                        //血量等于0和小于0就说明敌方坦克以死亡
-                        if (enemyTanKArr.get(j).getBlood() <= 0) {
-                            //创建Bomb对象
-                            Bomb bomb = new Bomb(enemyTanKArr.get(j).getX() + 7,
-                                    enemyTanKArr.get(j).getY() + 1);
-                            bombArrKill.add(bomb);
-                            //false代表坦克死亡，结束敌方坦克线程
-                            enemyTanKArr.get(j).isLent = false;
-                            //在vector集合删除坦克，不在画坦克
-                            enemyTanKArr.remove(j);
-                            //记录击杀的敌方坦克数量
-                            try {
-                                recorder.enemyTankRecord();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            System.out.println("被击中,敌方坦克消失");
-                            break;
-                        }
+                            && (enemyTanKArr.get(j).getY() + -36) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + -15) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, -15,12);
+                        break;
+                    } //长方形2
+                    else if (enemyTanKArr.get(j).getX() + 3 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + 70) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + 15) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + 33) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, -15,12);
+                        break;
+                    } //正方形
+                    else if (enemyTanKArr.get(j).getX() + 14 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + 58) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + -14) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + 14) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, -14,12);
+                        break;
                     }
+
                 }
             }
         }
@@ -501,59 +545,53 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 //判断我方坦克方向 上下方向
                 if (luoTanK.getDirect() == 0 || luoTanK.getDirect() == 1) {
                     //敌方子弹碰撞体积
-                    if (luoTanK.getX() < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
-                            && (luoTanK.getX() + 70) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
-                            && (luoTanK.getY() - 28) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()
-                            && (luoTanK.getY() + 30) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()) {
-
-                        //创建子弹打中的特效打Bomb对象
-                        Bomb bombHero = new Bomb(enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX() - 24,
-                                enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY() + 5);
-                        bombArrHero.add(bombHero);
-                        //打中我方坦克后，删除敌方子弹
-                        enemyTanKArr.get(i).vectorEnemyHeroZiDuan.remove(j);
-                        //打中我方坦克减血
-                        luoTanK.setBlood(luoTanK.getBlood() - enemyTanKArr.get(i).getForce());
-                        System.out.println("我方减血了");
-                        //血量等于0和小于0就说明我方坦克以死亡
-                        if (luoTanK.getBlood() <= 0) {
-                            //创建Bomb对象
-                            Bomb bomb = new Bomb(luoTanK.getX() + 7,
-                                    luoTanK.getY() + 1);
-                            bombArrKill.add(bomb);
-                            //我方坦克被打中后，死亡
-                            luoTanK = null;
-                            System.out.println("被击中,我方坦克消失");
-                            break;
-                        }
+                    //长方形1
+                    if (luoTanK.getX() + 5 < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getX() + 25) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getY() + -36) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()
+                            && (luoTanK.getY() + 34) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()) {
+                        handleEnemyBulletHitLuo(i, j, -24, 11);
+                        break;
+                    } //长方形2
+                    else if (luoTanK.getX() + 55 < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getX() + 68) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getY() + -36) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()
+                            && (luoTanK.getY() + 34) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()) {
+                        handleEnemyBulletHitLuo(i, j, -10, 11);
+                        break;
+                    } //正方形
+                    else if (luoTanK.getX() + 19 < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getX() + 54) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getY() + -26) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()
+                            && (luoTanK.getY() + 13) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()) {
+                        handleEnemyBulletHitLuo(i, j, -18, 7);
+                        break;
                     }
+
                 } else {
                     //不是上下就只有左右方向了
                     //敌方子弹碰撞体积
-                    if ((luoTanK.getX() + 3) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
-                            && (luoTanK.getX() + 67) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
-                            && (luoTanK.getY() - 28) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()
-                            && (luoTanK.getY() + 20) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()) {
-                        //创建子弹打中的特效打Bomb对象
-                        Bomb bombHero = new Bomb(enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX() - 24,
-                                enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY() + 5);
-                        bombArrHero.add(bombHero);
-                        //打中我方坦克后，删除敌方子弹
-                        enemyTanKArr.get(i).vectorEnemyHeroZiDuan.remove(j);
-                        //打中我方坦克减血
-                        luoTanK.setBlood(luoTanK.getBlood() - enemyTanKArr.get(i).getForce());
-                        System.out.println("我方减血了");
-                        //血量等于0和小于0就说明我方坦克以死亡
-                        if (luoTanK.getBlood() <= 0) {
-                            //创建坦克死亡特效的Bomb对象
-                            Bomb bomb = new Bomb(luoTanK.getX() + 7,
-                                    luoTanK.getY() + 1);
-                            bombArrKill.add(bomb);
-                            //我方坦克被打中后，死亡
-                            luoTanK = null;
-                            System.out.println("被击中,我方坦克消失");
-                            break;
-                        }
+                    //长方形1
+                    if (luoTanK.getX() + 3 < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getX() + 70) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getY() + -36) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()
+                            && (luoTanK.getY() + -15) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()) {
+                        handleEnemyBulletHitLuo(i, j, -15, 12);
+                        break;
+                    } //长方形2
+                    else if (luoTanK.getX() + 3 < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getX() + 70) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getY() + 15) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()
+                            && (luoTanK.getY() + 33) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()) {
+                        handleEnemyBulletHitLuo(i, j, -15, 12);
+                        break;
+                    } //正方形
+                    else if (luoTanK.getX() + 14 < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getX() + 58) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanX()
+                            && (luoTanK.getY() + -14) < enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()
+                            && (luoTanK.getY() + 14) > enemyTanKArr.get(i).vectorEnemyHeroZiDuan.get(j).getZiDuanY()) {
+                        handleEnemyBulletHitLuo(i, j, -14, 12);
+                        break;
                     }
                 }
             }
