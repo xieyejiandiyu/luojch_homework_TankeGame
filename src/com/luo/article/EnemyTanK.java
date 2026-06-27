@@ -7,7 +7,71 @@ import java.util.Vector;
 
 @SuppressWarnings({"all"})
 public class EnemyTanK extends Tank implements Runnable, Serializable {
+    //垂直方向 坦克跟子弹碰撞盒偏移参数(坦克朝上/朝下)
+    //左侧长方形(左边履带)
+    //爆炸特效偏移
+    public static final int VERTICAL_RECT_LEFT_EXPLODE_X_OFFSET_BULLET = -24;
+    public static final int VERTICAL_RECT_LEFT_EXPLODE_Y_OFFSET_BULLET = 11;
+    //碰撞盒边界偏移
+    public static final int VERTICAL_RECT_LEFT_LEFT_X_OFFSET_BULLET = 5;
+    public static final int VERTICAL_RECT_LEFT_RIGHT_X_OFFSET_BULLET = 25;
+    public static final int VERTICAL_RECT_LEFT_TOP_Y_OFFSET_BULLET = -36;
+    public static final int VERTICAL_RECT_LEFT_BOTTOM_Y_OFFSET_BULLET = 34;
 
+    //右侧长方形(右边履带)
+    //爆炸特效偏移
+    public static final int VERTICAL_RECT_RIGHT_EXPLODE_X_OFFSET_BULLET = -10;
+    public static final int VERTICAL_RECT_RIGHT_EXPLODE_Y_OFFSET_BULLET = 11;
+    //碰撞盒边界偏移
+    public static final int VERTICAL_RECT_RIGHT_LEFT_X_OFFSET_BULLET = 55;
+    public static final int VERTICAL_RECT_RIGHT_RIGHT_X_OFFSET_BULLET = 68;
+    public static final int VERTICAL_RECT_RIGHT_TOP_Y_OFFSET_BULLET = -36;
+    public static final int VERTICAL_RECT_RIGHT_BOTTOM_Y_OFFSET_BULLET = 34;
+
+    //正方形(炮塔)
+    //爆炸特效偏移
+    public static final int VERTICAL_SQUARE_EXPLODE_X_OFFSET_BULLET = -18;
+    public static final int VERTICAL_SQUARE_EXPLODE_Y_OFFSET_BULLET = 7;
+    // 碰撞盒边界偏移
+    public static final int VERTICAL_SQUARE_LEFT_X_OFFSET_BULLET = 19;
+    public static final int VERTICAL_SQUARE_RIGHT_X_OFFSET_BULLET = 54;
+    public static final int VERTICAL_SQUARE_TOP_Y_OFFSET_BULLET = -26;
+    public static final int VERTICAL_SQUARE_BOTTOM_Y_OFFSET_BULLET = 13;
+
+
+    //水平方向 坦克跟子弹碰撞盒偏移参数(坦克朝左/朝右)
+    //左侧长方形(左边履带)
+    //爆炸特效偏移
+    public static final int HORIZONTAL_RECT_LEFT_EXPLODE_X_OFFSET_BULLET = -15;
+    public static final int HORIZONTAL_RECT_LEFT_EXPLODE_Y_OFFSET_BULLET = 12;
+    //碰撞盒边界偏移
+    public static final int HORIZONTAL_RECT_LEFT_LEFT_X_OFFSET_BULLET = 3;
+    public static final int HORIZONTAL_RECT_LEFT_RIGHT_X_OFFSET_BULLET = 70;
+    public static final int HORIZONTAL_RECT_LEFT_TOP_Y_OFFSET_BULLET = -36;
+    public static final int HORIZONTAL_RECT_LEFT_BOTTOM_Y_OFFSET_BULLET = -15;
+
+    //右侧长方形(右边履带)
+    //爆炸特效偏移
+    public static final int HORIZONTAL_RECT_RIGHT_EXPLODE_X_OFFSET_BULLET = -15;
+    public static final int HORIZONTAL_RECT_RIGHT_EXPLODE_Y_OFFSET_BULLET = 12;
+    //碰撞盒边界偏移
+    public static final int HORIZONTAL_RECT_RIGHT_LEFT_X_OFFSET_BULLET = 3;
+    public static final int HORIZONTAL_RECT_RIGHT_RIGHT_X_OFFSET_BULLET = 70;
+    public static final int HORIZONTAL_RECT_RIGHT_TOP_Y_OFFSET_BULLET = 15;
+    public static final int HORIZONTAL_RECT_RIGHT_BOTTOM_Y_OFFSET_BULLET = 33;
+
+    //正方形(炮塔)
+    //爆炸特效偏移
+    public static final int HORIZONTAL_SQUARE_EXPLODE_X_OFFSET_BULLET = -14;
+    public static final int HORIZONTAL_SQUARE_EXPLODE_Y_OFFSET_BULLET = 12;
+    //碰撞盒边界偏移
+    public static final int HORIZONTAL_SQUARE_LEFT_X_OFFSET_BULLET = 14;
+    public static final int HORIZONTAL_SQUARE_RIGHT_X_OFFSET_BULLET = 58;
+    public static final int HORIZONTAL_SQUARE_TOP_Y_OFFSET_BULLET = -14;
+    public static final int HORIZONTAL_SQUARE_BOTTOM_Y_OFFSET_BULLET = 14;
+
+
+    //坦克跟坦克碰撞盒偏移参数
     //垂直方向左上角和左下角偏移参数X
     public static final int VERTICAL_TOP_LEFT_X_OFFSET_TANK = -2;
 
@@ -32,6 +96,8 @@ public class EnemyTanK extends Tank implements Runnable, Serializable {
 
     //横向方向右下角和左下角偏移参数Y
     public static final int VERTICAL_HORIZONTAL_BELOW_Y_OFFSET_TANK = 24;
+
+
 
     //血量高度
     public static final double BLOOD_HEIGHT = 65;

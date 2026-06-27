@@ -483,25 +483,25 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                 //判断敌方坦克方向 上下方向
                 if (enemyTanKArr.get(j).getDirect() == 0 || enemyTanKArr.get(j).getDirect() == 1) {
                     //长方形1
-                    if (enemyTanKArr.get(j).getX() + 5 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getX() + 25) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getY() + -36) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
-                            && (enemyTanKArr.get(j).getY() + 34) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
-                        handleLuoBulletHitEnemy(i, j, -24,11);
+                    if (enemyTanKArr.get(j).getX() + EnemyTanK.VERTICAL_RECT_LEFT_LEFT_X_OFFSET_BULLET < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + EnemyTanK.VERTICAL_RECT_LEFT_RIGHT_X_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.VERTICAL_RECT_LEFT_TOP_Y_OFFSET_BULLET) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.VERTICAL_RECT_LEFT_BOTTOM_Y_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, EnemyTanK.VERTICAL_RECT_LEFT_EXPLODE_X_OFFSET_BULLET, EnemyTanK.VERTICAL_RECT_LEFT_EXPLODE_Y_OFFSET_BULLET);
                         break;
                     } //长方形2
-                    else if (enemyTanKArr.get(j).getX() + 55 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getX() + 68) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getY() + -36) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
-                            && (enemyTanKArr.get(j).getY() + 34) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
-                        handleLuoBulletHitEnemy(i, j, -10, 11);
+                    else if (enemyTanKArr.get(j).getX() + EnemyTanK.VERTICAL_RECT_RIGHT_LEFT_X_OFFSET_BULLET < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + EnemyTanK.VERTICAL_RECT_RIGHT_RIGHT_X_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.VERTICAL_RECT_RIGHT_TOP_Y_OFFSET_BULLET) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.VERTICAL_RECT_RIGHT_BOTTOM_Y_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, EnemyTanK.VERTICAL_RECT_RIGHT_EXPLODE_X_OFFSET_BULLET, EnemyTanK.VERTICAL_RECT_RIGHT_EXPLODE_Y_OFFSET_BULLET);
                         break;
                     } //正方形
-                    else if (enemyTanKArr.get(j).getX() + 19 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getX() + 54) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getY() + -26) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
-                            && (enemyTanKArr.get(j).getY() + 13) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
-                        handleLuoBulletHitEnemy(i, j, -18, 7);
+                    else if (enemyTanKArr.get(j).getX() + EnemyTanK.VERTICAL_SQUARE_LEFT_X_OFFSET_BULLET < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + EnemyTanK.VERTICAL_SQUARE_RIGHT_X_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.VERTICAL_SQUARE_TOP_Y_OFFSET_BULLET) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.VERTICAL_SQUARE_BOTTOM_Y_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, EnemyTanK.VERTICAL_SQUARE_EXPLODE_X_OFFSET_BULLET, EnemyTanK.VERTICAL_SQUARE_EXPLODE_Y_OFFSET_BULLET);
                         break;
                     }
 
@@ -510,25 +510,25 @@ public class MyPanel extends JPanel implements Runnable, KeyListener, MouseListe
                     //不是上下就只有左右方向了
                     //碰撞体积
                     //长方形一
-                    if (enemyTanKArr.get(j).getX() + 3 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getX() + 70) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getY() + -36) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
-                            && (enemyTanKArr.get(j).getY() + -15) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
-                        handleLuoBulletHitEnemy(i, j, -15,12);
+                    if (enemyTanKArr.get(j).getX() + EnemyTanK.HORIZONTAL_RECT_LEFT_LEFT_X_OFFSET_BULLET < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + EnemyTanK.HORIZONTAL_RECT_LEFT_RIGHT_X_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.HORIZONTAL_RECT_LEFT_TOP_Y_OFFSET_BULLET) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.HORIZONTAL_RECT_LEFT_BOTTOM_Y_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, EnemyTanK.HORIZONTAL_RECT_LEFT_EXPLODE_X_OFFSET_BULLET, EnemyTanK.HORIZONTAL_RECT_LEFT_EXPLODE_Y_OFFSET_BULLET);
                         break;
                     } //长方形2
-                    else if (enemyTanKArr.get(j).getX() + 3 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getX() + 70) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getY() + 15) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
-                            && (enemyTanKArr.get(j).getY() + 33) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
-                        handleLuoBulletHitEnemy(i, j, -15,12);
+                    else if (enemyTanKArr.get(j).getX() + EnemyTanK.HORIZONTAL_RECT_RIGHT_LEFT_X_OFFSET_BULLET < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + EnemyTanK.HORIZONTAL_RECT_RIGHT_RIGHT_X_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.HORIZONTAL_RECT_RIGHT_TOP_Y_OFFSET_BULLET) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.HORIZONTAL_RECT_RIGHT_BOTTOM_Y_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, EnemyTanK.HORIZONTAL_RECT_RIGHT_EXPLODE_X_OFFSET_BULLET, EnemyTanK.HORIZONTAL_RECT_RIGHT_EXPLODE_Y_OFFSET_BULLET);
                         break;
                     } //正方形
-                    else if (enemyTanKArr.get(j).getX() + 14 < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getX() + 58) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
-                            && (enemyTanKArr.get(j).getY() + -14) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
-                            && (enemyTanKArr.get(j).getY() + 14) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
-                        handleLuoBulletHitEnemy(i, j, -14,12);
+                    else if (enemyTanKArr.get(j).getX() + EnemyTanK.HORIZONTAL_SQUARE_LEFT_X_OFFSET_BULLET < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getX() + EnemyTanK.HORIZONTAL_SQUARE_RIGHT_X_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanX()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.HORIZONTAL_SQUARE_TOP_Y_OFFSET_BULLET) < luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()
+                            && (enemyTanKArr.get(j).getY() + EnemyTanK.HORIZONTAL_SQUARE_BOTTOM_Y_OFFSET_BULLET) > luoTanK.vectorLuoHeroZiDuan.get(i).getZiDuanY()) {
+                        handleLuoBulletHitEnemy(i, j, EnemyTanK.HORIZONTAL_SQUARE_EXPLODE_X_OFFSET_BULLET, EnemyTanK.HORIZONTAL_SQUARE_EXPLODE_Y_OFFSET_BULLET);
                         break;
                     }
 
